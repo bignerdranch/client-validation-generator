@@ -1,0 +1,10 @@
+{
+	"name": "npmweb/ardent-client-validator",
+	"description": "Allows client-side validation based on rules set up in-model via Ardent",
+	"type": "library",
+	"autoload": {
+		"psr-0": {
+			"NpmWeb/ClientValidator": "src/"
+		}
+	}
+}
