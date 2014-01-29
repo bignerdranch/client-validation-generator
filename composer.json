@@ -6,5 +6,8 @@
 		"psr-0": {
 			"NpmWeb\\ClientValidator": "src/"
 		}
+	},
+	"require-dev": {
+		"mockery/mockery": "dev-master@dev"
 	}
 }

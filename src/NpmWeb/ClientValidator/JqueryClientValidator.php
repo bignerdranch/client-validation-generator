@@ -27,7 +27,7 @@ class JqueryClientValidator implements ClientValidatorInterface {
 		);
 	}
 
-	public function generateClientValidatorCode( $allRules, $formId ) {
+	public function generateClientValidatorRules( $allRules ) {
 		$jQueryValidatorRuleMappings = self::jQueryValidatorRuleMappings();
 
 		$mappedRules = array();
@@ -72,6 +72,11 @@ class JqueryClientValidator implements ClientValidatorInterface {
 			}
 		}
 
+		return $mappedRules;
+	}
+
+	public function generateClientValidatorCode( $allRules, $formId ) {
+		$mappedRules = $this->generateClientValidatorRules( $allRules );
 		return '<script type="text/javascript">$(function(){ $("#'. $formId.'").validate({ rules: '.json_encode($mappedRules).'}); })</script>';
 	}
 
