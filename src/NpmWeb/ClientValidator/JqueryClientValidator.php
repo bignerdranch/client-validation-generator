@@ -9,7 +9,7 @@ namespace NpmWeb\ClientValidator;
  */
 class JqueryClientValidator implements ClientValidatorInterface {
 
-	public static function jQueryValidatorRuleMappings() {
+	protected static function jQueryValidatorRuleMappings() {
 		return array(
 			'required' => 'required',
 			'min' => 'minlength',
@@ -27,7 +27,7 @@ class JqueryClientValidator implements ClientValidatorInterface {
 		);
 	}
 
-	public function generateClientValidatorRules( $allRules ) {
+	protected function generateClientValidatorRules( $allRules ) {
 		$jQueryValidatorRuleMappings = self::jQueryValidatorRuleMappings();
 
 		$mappedRules = array();

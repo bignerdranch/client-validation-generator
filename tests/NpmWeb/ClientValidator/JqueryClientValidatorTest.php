@@ -2,7 +2,7 @@
 
 namespace NpmWeb\ClientValidator;
 
-class JqueryClientValidatorTest extends \PHPUnit_Framework_TestCase {
+class JqueryClientValidatorTest extends \NpmWeb\Test\TestCase {
 	
 	var $rules;
 	var $validator;
@@ -39,9 +39,10 @@ class JqueryClientValidatorTest extends \PHPUnit_Framework_TestCase {
 
 	public function testGenerateClientValidatorRules() {
 		// arrange
+		$method = $this->getMethod( 'NpmWeb\ClientValidator\JqueryClientValidator', 'generateClientValidatorRules' );
 
 		// act
-		$clientRules = $this->validator->generateClientValidatorRules($this->rules);
+		$clientRules = $method->invokeArgs( $this->validator, array($this->rules));
 
 		// assert
 		$this->assertEquals(
