@@ -4,7 +4,7 @@ namespace NpmWeb\ClientValidationGenerator\Laravel;
 
 use Mockery;
 
-class FormTest extends \NpmWeb\Test\TestCase {
+class FormBuilderTest extends \NpmWeb\Test\TestCase {
 	
 	var $gen;
 	var $form;
@@ -14,20 +14,17 @@ class FormTest extends \NpmWeb\Test\TestCase {
 
 	public function setUp() {
 		$this->gen = Mockery::mock('NpmWeb\ClientValidationGenerator\ClientValidationGeneratorInterface');
-		$this->form = Mockery::mock('NpmWeb\ClientValidationGenerator\Laravel\Form',array($this->gen))->makePartial();
+		$this->form = Mockery::mock('NpmWeb\ClientValidationGenerator\Laravel\FormBuilder',array($this->gen))->makePartial();
 	}
 
 	public function testModelWithValidation() {
 		// arrange
 		$formId = 'myform';
-		$rules = array( 'foo' => true, 'bar' => 20 );
-		$modelInstance = (object)array(
-			'rules' => $rules
-		);
+		$modelInstance = new MyModel();
 		$scriptTag = '<script>This is validator code!</script>';
 		$this->gen
 			->shouldReceive('generateClientValidatorCode')
-			->with( $rules, $formId )
+			->with( $modelInstance::$rules, $formId )
 			->andReturn($scriptTag);
 		$this->form
 			->shouldReceive('open')
@@ -43,7 +40,7 @@ class FormTest extends \NpmWeb\Test\TestCase {
 	public function testModelWithoutValidation() {
 		// arrange
 		$formId = 'myform';
-		$modelInstance = (object)array();
+		$modelInstance = new MyModel();
 		$this->form
 			->shouldReceive('open')
 			->andReturn('<form>');
@@ -55,4 +52,10 @@ class FormTest extends \NpmWeb\Test\TestCase {
 		$this->assertEquals( '<form>', $output );
 	}
 	
+}
+
+class MyModel {
+	public static $rules = array(
+		'name' => array('required','max:20'),
+	);
 }

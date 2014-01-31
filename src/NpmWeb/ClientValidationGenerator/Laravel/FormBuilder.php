@@ -5,10 +5,16 @@ namespace NpmWeb\ClientValidationGenerator\Laravel;
 use NpmWeb\ClientValidationGenerator\ClientValidationGeneratorInterface as Generator;
 
 /**
- * Form that makes it easy to insert the client validator code if you
- * are using Ardent to put validation rules in the model itself.
+ * FormBuilder that makes it easy to insert the client validator code if
+ * you are using Ardent to put validation rules in the model itself.
+ *
+ * To use this FormBuilder, open config/app.php, find the 'providers'
+ * array, and replace
+ *   'Illuminate\Html\HtmlServiceProvider',
+ * with
+ *   'NpmWeb\ClientValidationGenerator\Laravel\HtmlServiceProvider',
  */
-class Form extends \Illuminate\Html\FormBuilder {
+class FormBuilder extends \Illuminate\Html\FormBuilder {
 
 	var $gen;
 
@@ -32,7 +38,7 @@ class Form extends \Illuminate\Html\FormBuilder {
 			}
 
 			// get validator code
-			$extra = $this->gen->generateClientValidatorCode( $model->rules, $formId );
+			$extra = $this->gen->generateClientValidatorCode( $model::$rules, $formId );
 		}
 
 		// return results
