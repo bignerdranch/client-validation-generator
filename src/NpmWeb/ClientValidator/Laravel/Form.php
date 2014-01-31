@@ -1,7 +1,11 @@
 <?php
 
-namespace NpmWeb\ClientValidator;
+namespace NpmWeb\ClientValidator\Laravel;
 
+/**
+ * Form that makes it easy to insert the client validator code if you
+ * are using Ardent to put validation rules in the model itself.
+ */
 class Form extends \Illuminate\Support\Facades\Form {
 
 	public static function model( $modelInstance, $options )

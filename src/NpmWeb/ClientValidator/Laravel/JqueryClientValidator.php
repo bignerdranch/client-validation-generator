@@ -1,13 +1,18 @@
 <?php
 
-namespace NpmWeb\ClientValidator;
+namespace NpmWeb\ClientValidator\Laravel;
 
 /**
  * A client validator that uses jQuery Validation. This script does not
  * include the jQuery and jQuery Validation JS files in your page--do
  * that separately.
  */
-class JqueryClientValidator implements ClientValidatorInterface {
+class JqueryClientValidator implements \NpmWeb\ClientValidator\ClientValidatorInterface {
+
+	public function generateClientValidatorCode( $allRules, $formId ) {
+		$mappedRules = $this->generateClientValidatorRules( $allRules );
+		return '<script type="text/javascript">$(function(){ $("#'. $formId.'").validate({ rules: '.json_encode($mappedRules).'}); })</script>';
+	}
 
 	protected static function jQueryValidatorRuleMappings() {
 		return array(
@@ -73,11 +78,6 @@ class JqueryClientValidator implements ClientValidatorInterface {
 		}
 
 		return $mappedRules;
-	}
-
-	public function generateClientValidatorCode( $allRules, $formId ) {
-		$mappedRules = $this->generateClientValidatorRules( $allRules );
-		return '<script type="text/javascript">$(function(){ $("#'. $formId.'").validate({ rules: '.json_encode($mappedRules).'}); })</script>';
 	}
 
 }

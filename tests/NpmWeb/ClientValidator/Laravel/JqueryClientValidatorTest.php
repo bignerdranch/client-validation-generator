@@ -1,6 +1,6 @@
 <?php
 
-namespace NpmWeb\ClientValidator;
+namespace NpmWeb\ClientValidator\Laravel;
 
 class JqueryClientValidatorTest extends \NpmWeb\Test\TestCase {
 	
@@ -39,7 +39,7 @@ class JqueryClientValidatorTest extends \NpmWeb\Test\TestCase {
 
 	public function testGenerateClientValidatorRules() {
 		// arrange
-		$method = $this->getMethod( 'NpmWeb\ClientValidator\JqueryClientValidator', 'generateClientValidatorRules' );
+		$method = $this->getMethod( 'NpmWeb\ClientValidator\Laravel\JqueryClientValidator', 'generateClientValidatorRules' );
 
 		// act
 		$clientRules = $method->invokeArgs( $this->validator, array($this->rules));
