@@ -16,7 +16,7 @@ class Form extends \Illuminate\Html\FormBuilder {
 		$this->gen = $gen;
 	}
 
-	public function model( $modelInstance, $options )
+	public function model($model, array $options = array())
 	{
 		$extra = '';
 
@@ -26,17 +26,17 @@ class Form extends \Illuminate\Html\FormBuilder {
 			if( array_key_exists('id',$options) ) {
 				$formId = $options['id'];
 			} else {
-				$class = str_replace('\\', '_', get_class($modelInstance));
+				$class = str_replace('\\', '_', get_class($model));
 				$formId = 'form_'.$class;
 				$options['id'] = $formId;
 			}
 
 			// get validator code
-			$extra = $this->gen->generateClientValidatorCode( $modelInstance->rules, $formId );
+			$extra = $this->gen->generateClientValidatorCode( $model->rules, $formId );
 		}
 
 		// return results
-		$results = parent::model($modelInstance, $options);
+		$results = parent::model($model, $options);
 		return $results . $extra;
 	}
 
