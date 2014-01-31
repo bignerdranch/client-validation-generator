@@ -1,4 +1,4 @@
-ardent-client-validator
+client-validation-generator
 =======================
 
-Allows client-side validation based on rules set up in-model via Ardent
+Server-side code to generate client-side validation, usually based on server-side validation rules from a different validation framework.

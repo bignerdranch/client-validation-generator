@@ -1,10 +1,10 @@
 {
-	"name": "npmweb/ardent-client-validator",
-	"description": "Allows client-side validation based on rules set up in-model via Ardent",
+	"name": "npmweb/client-validation-generator",
+	"description": "Server-side code to generate client-side validation, usually based on server-side validation rules from a different validation framework",
 	"type": "library",
 	"autoload": {
 		"psr-0": {
-			"NpmWeb\\ClientValidator\\": "src/",
+			"NpmWeb\\ClientValidationGenerator\\": "src/",
 			"NpmWeb\\Test\\": "tests/"
 		}
 	}

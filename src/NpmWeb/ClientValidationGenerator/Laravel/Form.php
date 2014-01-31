@@ -1,6 +1,6 @@
 <?php
 
-namespace NpmWeb\ClientValidator\Laravel;
+namespace NpmWeb\ClientValidationGenerator\Laravel;
 
 /**
  * Form that makes it easy to insert the client validator code if you
@@ -24,7 +24,7 @@ class Form extends \Illuminate\Support\Facades\Form {
 			}
 
 			// get validator code
-			$validator = \App::make('NpmWeb\ClientValidator\ClientValidatorInterface');
+			$validator = \App::make('NpmWeb\ClientValidationGenerator\ClientValidationGeneratorInterface');
 			$extra = $validator->generateClientValidatorCode( $modelInstance::$rules, $formId );
 		}
 

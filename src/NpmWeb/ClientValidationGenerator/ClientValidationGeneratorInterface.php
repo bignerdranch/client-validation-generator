@@ -1,8 +1,8 @@
 <?php
 
-namespace NpmWeb\ClientValidator;
+namespace NpmWeb\ClientValidationGenerator;
 
-interface ClientValidatorInterface {
+interface ClientValidationGeneratorInterface {
 
 	/**
 	 * Returns client validator code for the given model class. Any
