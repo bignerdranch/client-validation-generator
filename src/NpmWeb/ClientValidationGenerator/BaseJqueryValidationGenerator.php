@@ -22,10 +22,10 @@ abstract class BaseJqueryValidationGenerator
 	public function generateClientValidatorCode( $allRules, $formId ) {
 		$mappedRules = $this->generateClientValidatorRules( $allRules );
 		return '<script type="text/javascript">'
-			+ '$(function(){'
-			+'$("#'. $formId.'").validate({ rules: '.json_encode($mappedRules).'});'
-			+ '});'
-			+ '</script>';
+			. '$(function(){'
+			. '$("#'. $formId.'").validate({ rules: '.json_encode($mappedRules).'});'
+			. '});'
+			. '</script>';
 	}
 
 	/**
