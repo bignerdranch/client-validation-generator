@@ -2,9 +2,6 @@
 
 namespace NpmWeb\ClientValidationGenerator\Laravel;
 
-/**
- * Registers the client-validation enabled FormBuilder as the default
- */
 class HtmlServiceProvider extends \Illuminate\Html\HtmlServiceProvider {
 
 	/**
@@ -16,9 +13,10 @@ class HtmlServiceProvider extends \Illuminate\Html\HtmlServiceProvider {
 	{
 		$this->app->bindShared('form', function($app)
 		{
-			$form = new Form( \App::make(
-				'NpmWeb\ClientValidationGenerator\ClientValidationGeneratorInterface'),
-				$app['html'], $app['url'], $app['session.store']->getToken());
+			$form = new FormBuilder( $app['html'], $app['url'], $app['session.store']->getToken());
+
+			$form->setClientValidationGenerator( \App::make(
+				'NpmWeb\ClientValidationGenerator\ClientValidationGeneratorInterface') );
 
 			return $form->setSessionStore($app['session.store']);
 		});

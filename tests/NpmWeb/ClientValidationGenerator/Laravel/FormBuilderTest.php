@@ -14,7 +14,8 @@ class FormBuilderTest extends \NpmWeb\Test\TestCase {
 
 	public function setUp() {
 		$this->gen = Mockery::mock('NpmWeb\ClientValidationGenerator\ClientValidationGeneratorInterface');
-		$this->form = Mockery::mock('NpmWeb\ClientValidationGenerator\Laravel\FormBuilder',array($this->gen))->makePartial();
+		$this->form = Mockery::mock('NpmWeb\ClientValidationGenerator\Laravel\FormBuilder')->makePartial();
+		$this->form->setClientValidationGenerator($this->gen);
 	}
 
 	public function testModelWithValidation() {

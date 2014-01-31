@@ -16,9 +16,9 @@ use NpmWeb\ClientValidationGenerator\ClientValidationGeneratorInterface as Gener
  */
 class FormBuilder extends \Illuminate\Html\FormBuilder {
 
-	var $gen;
+	private $gen;
 
-	public function __construct( Generator $gen ) {
+	public function setClientValidationGenerator( Generator $gen ) {
 		$this->gen = $gen;
 	}
 
