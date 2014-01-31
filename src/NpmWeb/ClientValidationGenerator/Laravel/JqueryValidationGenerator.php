@@ -3,18 +3,11 @@
 namespace NpmWeb\ClientValidationGenerator\Laravel;
 
 /**
- * A client validator that uses jQuery Validation. This script does not
- * include the jQuery and jQuery Validation JS files in your page--do
- * that separately.
+ * Generates jQuery validation from Laravel server-side rules.
  */
 class JqueryValidationGenerator
-	implements \NpmWeb\ClientValidationGenerator\ClientValidationGeneratorInterface
+	extends \NpmWeb\ClientValidationGenerator\BaseJqueryValidationGenerator
 {
-
-	public function generateClientValidatorCode( $allRules, $formId ) {
-		$mappedRules = $this->generateClientValidatorRules( $allRules );
-		return '<script type="text/javascript">$(function(){ $("#'. $formId.'").validate({ rules: '.json_encode($mappedRules).'}); })</script>';
-	}
 
 	protected static function jQueryValidatorRuleMappings() {
 		return array(
