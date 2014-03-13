@@ -15,8 +15,7 @@ class HtmlServiceProvider extends \Illuminate\Html\HtmlServiceProvider {
 		{
 			$form = new FormBuilder( $app['html'], $app['url'], $app['session.store']->getToken());
 
-			$form->setClientValidationGenerator( \App::make(
-				'NpmWeb\ClientValidationGenerator\ClientValidationGeneratorInterface') );
+			$form->setClientValidationGenerator( new JqueryValidationGenerator(true) );
 
 			return $form->setSessionStore($app['session.store']);
 		});

@@ -14,6 +14,12 @@ abstract class BaseJqueryValidationGenerator
 	implements \NpmWeb\ClientValidationGenerator\ClientValidationGeneratorInterface
 {
 
+	protected $useRequireJs;
+
+	public function __construct( $useRequireJs ) {
+		$this->useRequireJs = $useRequireJs;
+	}
+
 	/**
 	 * Generates a script tag with the jQuery Validator binding.
 	 * Delegates to the abstract generateClientValidatorRules() to
@@ -21,11 +27,17 @@ abstract class BaseJqueryValidationGenerator
 	 */
 	public function generateClientValidatorCode( $allRules, $formId ) {
 		$mappedRules = $this->generateClientValidatorRules( $allRules );
-		return '<script type="text/javascript">'
-			. '$(function(){'
-			. '$("#'. $formId.'").validate({ rules: '.json_encode($mappedRules).'});'
-			. '});'
-			. '</script>';
+		$html = '<script type="text/javascript">';
+		if( $this->useRequireJs ) {
+			$html .= 'require([\'jquery-validation\'],function(a){';
+		} else {
+			$html .= '$(function(){';
+		}
+		$html .= '$("#'. $formId.'").validate({ rules: '.json_encode($mappedRules).'});'
+				. '});'
+				. '</script>';
+
+		return $html;
 	}
 
 	/**
