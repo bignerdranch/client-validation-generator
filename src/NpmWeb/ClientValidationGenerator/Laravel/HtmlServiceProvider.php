@@ -13,13 +13,13 @@ class HtmlServiceProvider extends \Illuminate\Html\HtmlServiceProvider {
 	{
 		$this->app->bindShared('form', function($app)
 		{
-			$form = $this->createFormBuilder();
+			$form = $this->createFormBuilder($app);
 			$form->setClientValidationGenerator( $this->createClientValidationGenerator() );
 			return $form->setSessionStore($app['session.store']);
 		});
 	}
 
-	protected function createFormBuilder() {
+	protected function createFormBuilder($app) {
 		return new FormBuilder( $app['html'], $app['url'], $app['session.store']->getToken());
 	}
 
