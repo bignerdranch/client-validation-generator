@@ -1,8 +1,6 @@
 <?php
 
-namespace NpmWeb\CommunityService\ServiceProviders;
-
-use NpmWeb\ClientValidationGenerator\Laravel\JqueryValidationGenerator;
+namespace NpmWeb\ClientValidationGenerator\Laravel;
 
 class FoundationHtmlServiceProvider 
 	extends HtmlServiceProvider
