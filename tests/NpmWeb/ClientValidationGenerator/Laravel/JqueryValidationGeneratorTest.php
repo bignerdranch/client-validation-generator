@@ -34,7 +34,7 @@ class JqueryValidationGeneratorTest extends \NpmWeb\Test\TestCase {
 	}
 
 	public function setUp() {
-		$this->validator = new JqueryValidationGenerator();
+		$this->validator = new JqueryValidationGenerator(false);
 	}
 
 	public function testGenerateClientValidatorRules() {
