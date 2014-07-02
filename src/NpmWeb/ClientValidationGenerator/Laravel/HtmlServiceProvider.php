@@ -14,7 +14,7 @@ class HtmlServiceProvider extends \Illuminate\Html\HtmlServiceProvider {
 		$this->app->bindShared('form', function($app)
 		{
 			$form = $this->createFormBuilder($app);
-			$form->setClientValidationGenerator( $this->createClientValidationGenerator() );
+			$form->setClientValidationGenerator( $this->createClientValidationGenerator($app) );
 			return $form->setSessionStore($app['session.store']);
 		});
 	}
@@ -26,8 +26,8 @@ class HtmlServiceProvider extends \Illuminate\Html\HtmlServiceProvider {
 	/**
 	 * Sets up the client validation generator instance
 	 */
-	protected function createClientValidationGenerator() {
-		return new JqueryValidationGenerator(true);
+	protected function createClientValidationGenerator($app) {
+		return $app->make('client-validation');
 	}
 
 }

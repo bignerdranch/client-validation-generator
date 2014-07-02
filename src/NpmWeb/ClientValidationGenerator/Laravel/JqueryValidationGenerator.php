@@ -9,27 +9,20 @@ class JqueryValidationGenerator
 	extends \NpmWeb\ClientValidationGenerator\BaseJqueryValidationGenerator
 {
 
-	protected static function jQueryValidatorRuleMappings() {
-		return array(
-			'required' => 'required',
-			'min' => 'minlength',
-			'max' => 'maxlength',
-			'date' => 'date',
-			'email' => 'email',
-			'url' => 'url',
-			'numeric' => 'number',
-			'before_now' => 'before_now',
-			'same' => array(
-				'rule' => 'equalTo',
-				'param' => function( $param ) {
-					return 'input[name=' . $param . ']';
-				},
-			),
-		);
+	protected $ruleMappings;
+
+	public function __construct(
+		$ruleMappings,
+		$useRequireJs,
+		$packageName = array('jquery-validation'),
+		$functionName = 'validate'
+	) {
+		parent::__construct($useRequireJs,$packageName,$functionName);
+		$this->ruleMappings = $ruleMappings;
 	}
 
 	protected function generateClientValidatorRules( $allRules ) {
-		$jQueryValidatorRuleMappings = self::jQueryValidatorRuleMappings();
+		$jQueryValidatorRuleMappings = $this->ruleMappings;
 
 		$mappedRules = array();
 		foreach( $allRules as $field => $fieldRules ) {
