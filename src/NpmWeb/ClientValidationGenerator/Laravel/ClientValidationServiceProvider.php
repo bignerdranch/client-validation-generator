@@ -12,6 +12,17 @@ class ClientValidationServiceProvider extends ServiceProvider {
 	protected $defer = true;
 
 	/**
+	 * Bootstrap the application events.
+	 *
+	 * @return void
+	 */
+	public function boot()
+	{
+		// @see https://coderwall.com/p/svocrg
+		$this->package('npmweb/client-validation-generator', null, __DIR__.'/../../../');
+	}
+
+	/**
 	 * Register the service provider.
 	 *
 	 * @return void
@@ -28,16 +39,4 @@ class ClientValidationServiceProvider extends ServiceProvider {
 			return (new ClientValidationManager($app))->driver();
 		});
 	}
-
-
-	/**
-	 * Get the services provided by the provider.
-	 *
-	 * @return array
-	 */
-	public function provides()
-	{
-		return array('client-validation');
-	}
-
 }
