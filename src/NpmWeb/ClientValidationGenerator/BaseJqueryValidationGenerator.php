@@ -20,7 +20,7 @@ abstract class BaseJqueryValidationGenerator
 
 	public function __construct(
 		$useRequireJs,
-		$packageName = 'jquery-validation',
+		$packageName = array('jquery-validation'),
 		$functionName = 'validate'
 	) {
 		$this->useRequireJs = $useRequireJs;
@@ -37,7 +37,12 @@ abstract class BaseJqueryValidationGenerator
 		$mappedRules = $this->generateClientValidatorRules( $allRules );
 		$html = '<script type="text/javascript">';
 		if( $this->useRequireJs ) {
-			$html .= 'require([\''.$this->packageName.'\'],function(a){';
+			if( is_array($this->packageName) ) {
+				$packages = $this->packageName;
+			} else {
+				$packages = array($this->packageName);
+			}
+			$html .= 'require('.json_encode($packages).', function(a){';
 		} else {
 			$html .= '$(function(){';
 		}

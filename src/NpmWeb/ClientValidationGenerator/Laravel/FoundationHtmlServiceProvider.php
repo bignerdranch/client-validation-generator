@@ -12,7 +12,7 @@ class FoundationHtmlServiceProvider
 	protected function createClientValidationGenerator() {
 		return new JqueryValidationGenerator(
 			true,
-			'jquery-validation-foundation',
+			['jquery-validation-foundation','jquery-validator-custom-rules'],
 			'validate_foundation'
 		);
 	}
