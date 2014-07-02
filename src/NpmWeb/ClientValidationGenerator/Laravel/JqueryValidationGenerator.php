@@ -18,6 +18,7 @@ class JqueryValidationGenerator
 			'email' => 'email',
 			'url' => 'url',
 			'numeric' => 'number',
+			'before_now' => 'before_now',
 			'same' => array(
 				'rule' => 'equalTo',
 				'param' => function( $param ) {
