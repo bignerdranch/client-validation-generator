@@ -4,8 +4,8 @@ return array(
 	'driver' => 'jquery',
 
 	'useRequireJs' => true,
-	'packageName' => ['jquery-validation-foundation','jquery-validator-custom-rules'],
-	'functionName' => 'validate_foundation',
+	'packageName' => ['jquery-validation'],
+	'functionName' => 'validate',
 
 	'ruleMappings' => array(
 		'required' => 'required',
