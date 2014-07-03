@@ -22,9 +22,9 @@ class ClientValidationManager extends Manager {
 	}
 
 	/**
-	 * Create an instance of the database driver.
+	 * Create an instance of the jQuery driver.
 	 *
-	 * @return \Illuminate\Auth\Guard
+	 * @return \NpmWeb\ClientValidationGenerator\Laravel\JqueryValidationGenerator
 	 */
 	public function createJqueryDriver()
 	{
