@@ -64,6 +64,18 @@ class JqueryValidationGenerator
 				// add to jQuery array
 				$mappedRules[$field][$mappedRuleName] = $mappedParam;
 			}
+            if (array_key_exists('minlength', $mappedRules[$field])) {
+                if (array_key_exists('number', $mappedRules[$field])) {
+                    $mappedRules[$field]['min'] = $mappedRules[$field]['minlength'];
+                    unset($mappedRules[$field]['minlength']);
+                }
+            }
+            if (array_key_exists('maxlength', $mappedRules[$field])) {
+                if (array_key_exists('number', $mappedRules[$field])) {
+                    $mappedRules[$field]['max'] = $mappedRules[$field]['maxlength'];
+                    unset($mappedRules[$field]['maxlength']);
+                }
+            }
 		}
 
 		return $mappedRules;
