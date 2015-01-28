@@ -22,6 +22,16 @@ return array(
                 return 'input[name=' . $param . ']';
             },
         ),
+        'confirmed' => array(
+            'rule' => 'equalTo',
+            'param' => function( $param, $field ) {
+                return '#'.$field;
+            },
+            'fieldOverride' => function( $param, $field ) {
+                // set it on the confirmation field, not the main one
+                return $field.'_confirmation';
+            },
+        ),
     ),
 
 );
