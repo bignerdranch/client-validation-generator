@@ -24,11 +24,13 @@ class JqueryValidationGenerator
     protected function generateClientValidatorRules( $allRules ) {
         $jQueryValidatorRuleMappings = $this->ruleMappings;
 
+        // fill in container arrays first, to handle nonstandard field validations
         $mappedRules = array();
         foreach( $allRules as $field => $fieldRules ) {
-
             $mappedRules[$field] = array();
+        }
 
+        foreach( $allRules as $field => $fieldRules ) {
             if( !is_array($fieldRules) ) {
                 $fieldRules = explode('|',$fieldRules);
             }
@@ -50,19 +52,23 @@ class JqueryValidationGenerator
 
                 // if mapped, get new data
                 $ruleMapping = $jQueryValidatorRuleMappings[$ruleName];
+                $fieldToSet = $field;
                 if( !is_array($ruleMapping) ) {
                     $mappedRuleName = $ruleMapping;
                     $mappedParam = $param;
                 } else { // is array
                     $mappedRuleName = $ruleMapping['rule'];
-                    $mappedParam = $ruleMapping['param']($param);
+                    $mappedParam = $ruleMapping['param']($param, $field);
+                    if( isset($ruleMapping['fieldOverride']) ) {
+                        $fieldToSet = $ruleMapping['fieldOverride']($param, $field);
+                    }
                 }
                 if( null == $mappedParam ) {
                     $mappedParam = true;
                 }
 
                 // add to jQuery array
-                $mappedRules[$field][$mappedRuleName] = $mappedParam;
+                $mappedRules[$fieldToSet][$mappedRuleName] = $mappedParam;
             }
             if (array_key_exists('minlength', $mappedRules[$field])) {
                 if (array_key_exists('number', $mappedRules[$field])) {
