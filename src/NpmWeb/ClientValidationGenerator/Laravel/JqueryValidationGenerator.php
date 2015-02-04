@@ -13,11 +13,11 @@ class JqueryValidationGenerator
 
     public function __construct(
         $ruleMappings,
-        $useRequireJs,
         $packageName = array('jquery-validation'),
-        $functionName = 'validate'
+        $functionName = 'validate',
+        $options = array()
     ) {
-        parent::__construct($useRequireJs,$packageName,$functionName);
+        parent::__construct($packageName,$functionName,$options);
         $this->ruleMappings = $ruleMappings;
     }
 

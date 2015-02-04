@@ -16,34 +16,63 @@ use NpmWeb\ClientValidationGenerator\ClientValidationGeneratorInterface as Gener
  */
 class FormBuilder extends \Illuminate\Html\FormBuilder {
 
-	private $gen;
+    private $gen;
+    private $npmValidate;
+    private $npmModel;
+    private $npmFormId;
 
-	public function setClientValidationGenerator( Generator $gen ) {
-		$this->gen = $gen;
-	}
+    public function setClientValidationGenerator( Generator $gen ) {
+        $this->gen = $gen;
+    }
 
-	public function model($model, array $options = array())
-	{
-		$extra = '';
+    public function model($model, array $options = array())
+    {
+        // set up form ID
+        if( array_key_exists('validate',$options) && $options['validate'] ) {
+            $this->npmValidate = true;
 
-		// if validation requestsd
-		if( array_key_exists('validate',$options) && $options['validate'] ) {
-			// make sure form has an ID
-			if( array_key_exists('id',$options) ) {
-				$formId = $options['id'];
-			} else {
-				$class = str_replace('\\', '_', get_class($model));
-				$formId = 'form_'.$class;
-				$options['id'] = $formId;
-			}
+            // make sure form has an ID
+            if( array_key_exists('id',$options) ) {
+                $this->npmFormId = $options['id'];
+            } else {
+                $class = str_replace('\\', '_', get_class($model));
+                $this->npmFormId = 'form_'.$class;
+                $options['id'] = $this->npmFormId;
+            }
+        }
 
-			// get validator code
-			$extra = $this->gen->generateClientValidatorCode( $model::$rules, $formId );
-		}
+        // pass to parent
+        $this->npmModel = $model;
+        $results = parent::model($model, $options);
+        if( Generator::START == $this->gen->getCodePosition() ) {
+            $results .= $this->generateClientValidatorCode();
+        }
+        return $results;
+    }
 
-		// return results
-		$results = parent::model($model, $options);
-		return $results . $extra;
-	}
+    public function close()
+    {
+        $results = '';
+        if( Generator::END == $this->gen->getCodePosition() ) {
+            $results .= $this->generateClientValidatorCode();
+        }
+        $results .= parent::close();
+        return $results;
+    }
+
+    protected function generateClientValidatorCode()
+    {
+        $extra = '';
+
+        // if validation requestsd
+        if( $this->npmValidate ) {
+            $model = $this->npmModel;
+            if( $model ) {
+                $extra = $this->gen->generateClientValidatorCode( $model::$rules, $this->npmFormId );
+            }
+        }
+
+        return $extra;
+    }
 
 }
