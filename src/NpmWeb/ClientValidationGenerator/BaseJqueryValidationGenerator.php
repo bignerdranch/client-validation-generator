@@ -47,8 +47,8 @@ abstract class BaseJqueryValidationGenerator
      * Delegates to the abstract generateClientValidatorRules() to
      * translate from server-side rules to jQuery rules.
      */
-    public function generateClientValidatorCode( $allRules, $formId ) {
-        $mappedRules = $this->generateClientValidatorRules( $allRules );
+    public function generateClientValidatorCode( $allRules, $formId, $extraValidationRules = null ) {
+        $mappedRules = $this->generateClientValidatorRules( $allRules, $extraValidationRules );
         $js = '$("#'. $formId.'").'.$this->functionName.'({ rules: '.json_encode($mappedRules);
         if( isset($this->submitHandler) ) {
             $js .= ', submitHandler: function(f) { '.$this->submitHandler.'(f); }';

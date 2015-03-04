@@ -39,6 +39,12 @@ class FormBuilder extends \Illuminate\Html\FormBuilder {
                 $this->npmFormId = 'form_'.$class;
                 $options['id'] = $this->npmFormId;
             }
+
+            // save extra rules
+            if( array_key_exists('extra-validation-rules', $options) ) {
+                $this->extraValidationRules = $options['extra-validation-rules'];
+                unset($options['extra-validation-rules']);
+            }
         }
 
         // pass to parent
@@ -68,7 +74,7 @@ class FormBuilder extends \Illuminate\Html\FormBuilder {
         if( $this->npmValidate ) {
             $model = $this->npmModel;
             if( $model ) {
-                $extra = $this->gen->generateClientValidatorCode( $model::$rules, $this->npmFormId );
+                $extra = $this->gen->generateClientValidatorCode( $model::$rules, $this->npmFormId, $this->extraValidationRules );
             }
         }
 
