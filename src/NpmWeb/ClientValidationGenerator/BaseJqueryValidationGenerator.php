@@ -17,6 +17,7 @@ abstract class BaseJqueryValidationGenerator
     protected $useRequireJs;
     protected $useDocumentReady;
     protected $codeAtEnd;
+    protected $submitHandler;
     protected $packageName;
     protected $functionName;
 
@@ -27,9 +28,10 @@ abstract class BaseJqueryValidationGenerator
     ) {
         $this->packageName = $packageName;
         $this->functionName = $functionName;
-        $this->useRequireJs = $options['useRequireJs'];
-        $this->useDocumentReady = $options['useDocumentReady'];
-        $this->codeAtEnd = $options['codeAtEnd'];
+        $this->useRequireJs = isset($options['useRequireJs']) ? $options['useRequireJs'] : false;
+        $this->useDocumentReady = isset($options['useDocumentReady']) ? $options['useDocumentReady'] : false;
+        $this->codeAtEnd = isset($options['codeAtEnd']) ? $options['codeAtEnd'] : false;
+        $this->submitHandler = isset($options['submitHandler']) ? $options['submitHandler'] : null;
     }
 
     /**
@@ -47,8 +49,11 @@ abstract class BaseJqueryValidationGenerator
      */
     public function generateClientValidatorCode( $allRules, $formId ) {
         $mappedRules = $this->generateClientValidatorRules( $allRules );
-        $js = '$("#'. $formId.'").'.$this->functionName.'({ rules: '.json_encode($mappedRules)
-                . '});';
+        $js = '$("#'. $formId.'").'.$this->functionName.'({ rules: '.json_encode($mappedRules);
+        if( isset($this->submitHandler) ) {
+            $js .= ', submitHandler: function(f) { '.$this->submitHandler.'(f); }';
+        }
+        $js .= '});';
 
         // wrap
         if( $this->useRequireJs ) {
