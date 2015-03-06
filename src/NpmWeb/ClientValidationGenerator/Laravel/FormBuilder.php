@@ -41,9 +41,14 @@ class FormBuilder extends \Illuminate\Html\FormBuilder {
             }
 
             // save extra rules
+            $this->clientValidationGeneratorOptions = [];
             if( array_key_exists('extra-validation-rules', $options) ) {
-                $this->extraValidationRules = $options['extra-validation-rules'];
+                $this->clientValidationGeneratorOptions['extraValidationRules'] = $options['extra-validation-rules'];
                 unset($options['extra-validation-rules']);
+            }
+            if( array_key_exists('submit-handler', $options) ) {
+                $this->clientValidationGeneratorOptions['submitHandler'] = $options['submit-handler'];
+                unset($options['submit-handler']);
             }
         }
 
@@ -74,7 +79,7 @@ class FormBuilder extends \Illuminate\Html\FormBuilder {
         if( $this->npmValidate ) {
             $model = $this->npmModel;
             if( $model ) {
-                $extra = $this->gen->generateClientValidatorCode( $model::$rules, $this->npmFormId, $this->extraValidationRules );
+                $extra = $this->gen->generateClientValidatorCode( $model::$rules, $this->npmFormId, $this->clientValidationGeneratorOptions );
             }
         }
 

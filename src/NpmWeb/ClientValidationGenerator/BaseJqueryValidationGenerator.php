@@ -31,7 +31,6 @@ abstract class BaseJqueryValidationGenerator
         $this->useRequireJs = isset($options['useRequireJs']) ? $options['useRequireJs'] : false;
         $this->useDocumentReady = isset($options['useDocumentReady']) ? $options['useDocumentReady'] : false;
         $this->codeAtEnd = isset($options['codeAtEnd']) ? $options['codeAtEnd'] : false;
-        $this->submitHandler = isset($options['submitHandler']) ? $options['submitHandler'] : null;
     }
 
     /**
@@ -47,11 +46,11 @@ abstract class BaseJqueryValidationGenerator
      * Delegates to the abstract generateClientValidatorRules() to
      * translate from server-side rules to jQuery rules.
      */
-    public function generateClientValidatorCode( $allRules, $formId, $extraValidationRules = null ) {
-        $mappedRules = $this->generateClientValidatorRules( $allRules, $extraValidationRules );
+    public function generateClientValidatorCode( $allRules, $formId, array $options = null ) {
+        $mappedRules = $this->generateClientValidatorRules( $allRules, $options );
         $js = '$("#'. $formId.'").'.$this->functionName.'({ rules: '.json_encode($mappedRules);
-        if( isset($this->submitHandler) ) {
-            $js .= ', submitHandler: function(f) { '.$this->submitHandler.'(f); }';
+        if( isset($options['submitHandler']) ) {
+            $js .= ', submitHandler: function(f) { '.$options['submitHandler'].'(f); }';
         }
         $js .= '});';
 

@@ -21,7 +21,7 @@ class JqueryValidationGenerator
         $this->ruleMappings = $ruleMappings;
     }
 
-    protected function generateClientValidatorRules( $allRules, $extraValidationRules = null ) {
+    protected function generateClientValidatorRules( $allRules, array $options = null ) {
         $jQueryValidatorRuleMappings = $this->ruleMappings;
 
         // fill in container arrays first, to handle nonstandard field validations
@@ -84,9 +84,9 @@ class JqueryValidationGenerator
             }
         }
 
-        if( $extraValidationRules ) {
+        if( isset($options['extraValidationRules']) ) {
             // TODO only works for new fields, may need more work to add rules to existing fields
-            $mappedRules += $extraValidationRules;
+            $mappedRules += $options['extraValidationRules'];
         }
 
         return $mappedRules;

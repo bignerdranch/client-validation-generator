@@ -12,7 +12,7 @@ interface ClientValidationGeneratorInterface {
      * JavaScript should be wrapped in <script> tags. It will be
      * included immediately after the opening <form> tag.
      */
-    public function generateClientValidatorCode( $rules, $formId, $extraValidationRules = null );
+    public function generateClientValidatorCode( $rules, $formId, array $options = null );
 
     /**
      * Returns the position the validation code should be placed at, START or
