@@ -1,15 +1,16 @@
 {
-	"name": "npmweb/client-validation-generator",
-	"description": "Server-side code to generate client-side validation, usually based on server-side validation rules from a different validation framework",
-	"type": "library",
-	"require-dev": {
-		"mockery/mockery": "dev-master@dev",
-		"laravel/framework": "4.1.*"
-	},
-	"autoload": {
-		"psr-0": {
-			"NpmWeb\\ClientValidationGenerator\\": "src/",
-			"NpmWeb\\Test\\": "tests/"
-		}
-	}
+  "name": "npmweb/client-validation-generator",
+  "description": "Server-side code to generate client-side validation, usually based on server-side validation rules from a different validation framework",
+  "type": "library",
+  "license": "MIT",
+  "require-dev": {
+    "mockery/mockery": "dev-master@dev",
+    "laravel/framework": "4.1.*"
+  },
+  "autoload": {
+    "psr-0": {
+      "NpmWeb\\ClientValidationGenerator\\": "src/",
+      "NpmWeb\\Test\\": "tests/"
+    }
+  }
 }
