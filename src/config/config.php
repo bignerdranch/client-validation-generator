@@ -32,6 +32,9 @@ return array(
                 return $field.'_confirmation';
             },
         ),
+
+        // if you're using the jQuery Additional validators, you can uncomment the following
+        'integer' => 'integer',
     ),
 
 );
