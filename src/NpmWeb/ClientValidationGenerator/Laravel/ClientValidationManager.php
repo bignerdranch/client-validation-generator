@@ -4,7 +4,7 @@ use Illuminate\Support\Manager;
 
 class ClientValidationManager extends Manager {
 
-    static $packageName = 'client-validation-generator';
+    static $packageName = 'client-validation';
 
     /**
      * Create a new driver instance.
@@ -29,10 +29,10 @@ class ClientValidationManager extends Manager {
     public function createJqueryDriver()
     {
         return new JqueryValidationGenerator(
-            $this->app['config']->get(self::$packageName.'::ruleMappings'),
-            $this->app['config']->get(self::$packageName.'::packageName'),
-            $this->app['config']->get(self::$packageName.'::functionName'),
-            $this->app['config']->get(self::$packageName.'::options')
+            $this->app['config']->get(self::$packageName.'.ruleMappings'),
+            $this->app['config']->get(self::$packageName.'.packageName'),
+            $this->app['config']->get(self::$packageName.'.functionName'),
+            $this->app['config']->get(self::$packageName.'.options')
         );
     }
 
@@ -43,7 +43,9 @@ class ClientValidationManager extends Manager {
      */
     public function getDefaultDriver()
     {
-        return $this->app['config']->get(self::$packageName.'::driver');
+        $driver = $this->app['config']->get(self::$packageName.'.driver');
+        // var_dump($driver);exit;
+        return $driver;
     }
 
     /**
@@ -54,7 +56,7 @@ class ClientValidationManager extends Manager {
      */
     public function setDefaultDriver($name)
     {
-        $this->app['config']->set(self::$packageName.'::driver', $name);
+        $this->app['config']->set(self::$packageName.'.driver', $name);
     }
 
 }

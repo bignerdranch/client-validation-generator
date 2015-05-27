@@ -3,9 +3,12 @@
   "description": "Server-side code to generate client-side validation, usually based on server-side validation rules from a different validation framework",
   "type": "library",
   "license": "MIT",
+  "require": {
+    "laravelcollective/html": "~4.1 || ~5.0"
+  },
   "require-dev": {
     "mockery/mockery": "dev-master@dev",
-    "laravel/framework": "4.1.*"
+    "laravel/framework": "~4.1 || ~5.0"
   },
   "autoload": {
     "psr-0": {

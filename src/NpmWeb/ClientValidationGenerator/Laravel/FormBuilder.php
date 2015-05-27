@@ -14,7 +14,7 @@ use NpmWeb\ClientValidationGenerator\ClientValidationGeneratorInterface as Gener
  * with
  *   'NpmWeb\ClientValidationGenerator\Laravel\HtmlServiceProvider',
  */
-class FormBuilder extends \Illuminate\Html\FormBuilder {
+class FormBuilder extends \Collective\Html\FormBuilder {
 
     private $gen;
     private $npmValidate;
