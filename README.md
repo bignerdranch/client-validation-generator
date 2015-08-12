@@ -33,7 +33,10 @@ Publish the package's config file to your app using `php artisan config:publish 
 
 ## Usage
 
-Once it's set up, when you call Form::model() or Form::close() (depending on a setting), a <script /> tag will be outputted with your generated client-side validation rules.
+Once it's set up, how to use it depends on what kind of model you're using:
+
+- If you're using [Ardent](https://github.com/laravelbook/ardent), when you call Form::model() or Form::close() (depending on a setting), pass `validate="true"`, and a <script /> tag will be outputted with your generated client-side validation rules.
+- If you're using some other method of validation, call Form::clientValidation() and pass in the array of validation rules, and the <script /> tag will be outputted with your generated client-side validation rules.
 
 To configure how this works, edit the config file `app/config/packages/npmweb/client-validation-generator/config.php`. It has the following values:
 

@@ -27,29 +27,12 @@ class FormBuilder extends \Collective\Html\FormBuilder {
 
     public function model($model, array $options = array())
     {
+        // always set up validation, whether output by this tag or not
+        $this->_setUpValidation( $model, $options );
+
         // set up form ID
         if( array_key_exists('validate',$options) && $options['validate'] ) {
             $this->npmValidate = true;
-
-            // make sure form has an ID
-            if( array_key_exists('id',$options) ) {
-                $this->npmFormId = $options['id'];
-            } else {
-                $class = str_replace('\\', '_', get_class($model));
-                $this->npmFormId = 'form_'.$class;
-                $options['id'] = $this->npmFormId;
-            }
-
-            // save extra rules
-            $this->clientValidationGeneratorOptions = [];
-            if( array_key_exists('extra-validation-rules', $options) ) {
-                $this->clientValidationGeneratorOptions['extraValidationRules'] = $options['extra-validation-rules'];
-                unset($options['extra-validation-rules']);
-            }
-            if( array_key_exists('submit-handler', $options) ) {
-                $this->clientValidationGeneratorOptions['submitHandler'] = $options['submit-handler'];
-                unset($options['submit-handler']);
-            }
         }
 
         // pass to parent
@@ -61,6 +44,29 @@ class FormBuilder extends \Collective\Html\FormBuilder {
         return $results;
     }
 
+    private function _setUpValidation( $model, array &$options )
+    {
+        // make sure form has an ID
+        if( array_key_exists('id',$options) ) {
+            $this->npmFormId = $options['id'];
+        } else {
+            $class = str_replace('\\', '_', get_class($model));
+            $this->npmFormId = 'form_'.$class;
+            $options['id'] = $this->npmFormId;
+        }
+
+        // save extra rules
+        $this->clientValidationGeneratorOptions = [];
+        if( array_key_exists('extra-validation-rules', $options) ) {
+            $this->clientValidationGeneratorOptions['extraValidationRules'] = $options['extra-validation-rules'];
+            unset($options['extra-validation-rules']);
+        }
+        if( array_key_exists('submit-handler', $options) ) {
+            $this->clientValidationGeneratorOptions['submitHandler'] = $options['submit-handler'];
+            unset($options['submit-handler']);
+        }
+    }
+
     public function close()
     {
         $results = '';
@@ -69,6 +75,11 @@ class FormBuilder extends \Collective\Html\FormBuilder {
         }
         $results .= parent::close();
         return $results;
+    }
+
+    public function clientValidation( $rules ) {
+        return $this->gen->generateClientValidatorCode( $rules, $this->npmFormId,
+            $this->clientValidationGeneratorOptions );
     }
 
     protected function generateClientValidatorCode()
