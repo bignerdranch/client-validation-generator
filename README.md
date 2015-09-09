@@ -8,7 +8,7 @@ Server-side code to generate client-side validation, usually based on server-sid
 
 		{
     		"require": {
-        		"npmweb/client-validation-generator": "~2.0"
+        		"npmweb/client-validation-generator": "^2.0"
 		    }
 		}
 
