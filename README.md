@@ -25,7 +25,7 @@ Server-side code to generate client-side validation, usually based on server-sid
 
 4. If you're using Laravel, publish the package's config file to your app:
 
-        $ php artisan vendor:publish --provider="NpmWeb\ClientValidationGenerator\Laravel\HtmlServiceProvider"
+        $ php artisan vendor:publish --provider="NpmWeb\ClientValidationGenerator\Laravel\ClientValidationServiceProvider"
 
 ## Usage
 
