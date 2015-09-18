@@ -6,26 +6,26 @@ Server-side code to generate client-side validation, usually based on server-sid
 
 1. Add `npmweb/client-validation-generator` as a requirement to `composer.json`:
 
-		{
-    		"require": {
-        		"npmweb/client-validation-generator": "^2.0"
-		    }
-		}
+        {
+            "require": {
+                "npmweb/client-validation-generator": "^2.0"
+            }
+        }
 
 2. Update your packages with `composer update`.
 
 3. If you're using Laravel, comment out any existing HtmlServiceProvider in your Laravel service providers list, and add this package's instead:
 
-		'providers' => array(
-        	...
-		    // LaravelCollective\Html\HtmlServiceProvider::class,
-		    NpmWeb\ClientValidationGenerator\Laravel\HtmlServiceProvider::class,
-		    NpmWeb\ClientValidationGenerator\Laravel\ClientValidationServiceProvider::class,
-		),
+        'providers' => array(
+            ...
+            // LaravelCollective\Html\HtmlServiceProvider::class,
+            NpmWeb\ClientValidationGenerator\Laravel\HtmlServiceProvider::class,
+            NpmWeb\ClientValidationGenerator\Laravel\ClientValidationServiceProvider::class,
+        ),
 
 4. If you're using Laravel, publish the package's config file to your app:
 
-	    $ php artisan vendor:publish --provider="NpmWeb\ClientValidationGenerator\Laravel\HtmlServiceProvider"
+        $ php artisan vendor:publish --provider="NpmWeb\ClientValidationGenerator\Laravel\HtmlServiceProvider"
 
 ## Usage
 
@@ -55,15 +55,15 @@ If the value is an associative array, several keys can be set:
 - `'name'`: the name of the client-side rule
 - `'param'`: a function defining what the parameter to the rule should be. This function receives the server-side parameter, and it can be transformed. For example, maybe the server-side rule is 'same' with a param of 'otherField', and the client-side rule needs to be 'equalTo' with a param of 'input[name=otherField]'. This could be accomplished with the following:
 
-	    'param' => function( $param ) {
-    	    return 'input[name=' . $param . ']';
-	    },
+        'param' => function( $param ) {
+            return 'input[name=' . $param . ']';
+        },
 
 - `'fieldOverride`: this lets you override the field the rule is set on. For example, maybe you have an email field and an email_confirmation field. On the server side, maybe the rule exists on the email field, but on the client-side you want the rule to exist on the email_confirmation field. You could accomplish that with the following:
 
-	    'fieldOverride' => function( $param, $field ) {
-    	    return $field.'_confirmation';
-	    },
+        'fieldOverride' => function( $param, $field ) {
+            return $field.'_confirmation';
+        },
 
 ## License
 
