@@ -20,6 +20,7 @@ Server-side code to generate client-side validation, usually based on server-sid
         	...
 		    // LaravelCollective\Html\HtmlServiceProvider::class,
 		    NpmWeb\ClientValidationGenerator\Laravel\HtmlServiceProvider::class,
+		    NpmWeb\ClientValidationGenerator\Laravel\ClientValidationServiceProvider::class,
 		),
 
 4. If you're using Laravel, publish the package's config file to your app:
