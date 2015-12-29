@@ -27,7 +27,11 @@ class HtmlServiceProvider extends \Collective\Html\HtmlServiceProvider {
 	 * Sets up the client validation generator instance
 	 */
 	protected function createClientValidationGenerator($app) {
-		return $app->make('client-validation');
+		if( $app->bound('client-validation') ) {
+			return $app->make('client-validation');
+		} else {
+			return new NullClientValidationGenerator;
+		}
 	}
 
 }
